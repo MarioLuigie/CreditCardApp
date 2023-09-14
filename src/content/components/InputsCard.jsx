@@ -52,18 +52,22 @@ export default function InputsCard () {
             <div className='inputsWrapper'>
                 <Input 
                     label="Card Number"
+                    name="cardNumber"
                 />
                 <Input 
                     label="Card Holders"
+                    name="cardHolders"
                 />
                 <div className='selectsWrapper'>
                     <InputSelect 
                         label="Expiration Date"
                         inputId="selectYear"
+                        name="year"
                         placeholder="Year"
                     />
                     <InputSelect 
                         inputId="selectMonth"
+                        name="month"
                         placeholder="Month"
                         options={monthsOptions}
 
@@ -71,6 +75,7 @@ export default function InputsCard () {
                     <InputSelect 
                         label="CVV"
                         inputId="selectCVV"
+                        name="cvv"
                     />
                 </div>
             </div>

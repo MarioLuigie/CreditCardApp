@@ -35,7 +35,8 @@ const styles = css`
      }
 `
 export default function Input ({
-    label
+    label,
+    name
 }) {
 
     return (
@@ -50,6 +51,7 @@ export default function Input ({
                 <input 
                     className='input'
                     id="card_number" 
+                    name={name}
                     type="text" 
                 />
             </div>
@@ -59,4 +61,5 @@ export default function Input ({
 
 Input.propTypes = {
     label : PropTypes.string.isRequired,
+    name : PropTypes.string.isRequired,
 }

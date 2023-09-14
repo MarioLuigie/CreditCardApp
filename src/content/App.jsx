@@ -7,7 +7,7 @@ const styles = css`
   width: 100%;
   display: flex;
   justify-content: center;
-  background-color: blue;
+  /* background-color: blue; */
 `
 
 export default function App() {

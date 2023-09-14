@@ -1,6 +1,6 @@
 export const section = {
     width : 100,
-    maxWidth : 1280,
+    maxWidth : 860,
     minWidth : 450,
 }
 

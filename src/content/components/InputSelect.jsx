@@ -23,35 +23,40 @@ const styles = css`
     .select {
         width: 100%;
         color: #1d1d1d;
-
-        option {
-            background-color: red;
-        }
     }
 `
 
 const customStyles = {
+
     // Styl dla kontenera menu
-    // menu: css`
-    //   background-color: lightgray;
-    //   border-radius: 8px;
-    //   width: 200px;
-    // `,
-  
+    control: (baseStyles, state) => ({
+        ...baseStyles,
+        borderColor : state.isFocused ? 'grey' : ' #bebebe',
+        width: "100%",
+        color: "#1d1d1d",
+
+        "&:hover" : {
+            cursor : "pointer",
+        }
+    }),
+    
     // Styl dla opcji w menu
-    option: (provided, state) => css`
-      ${provided}
-      background-color: ${state.isSelected ? 'blue' : 'white'};
-      color: ${state.isSelected ? 'white' : 'black'};
-      &:hover {
-        background-color: lightblue;
-      }
-    `,
+    option: (baseStyles, state) => ({
+        ...baseStyles,
+        backgroundColor : state.isSelected ? '#525252' : 'white',
+        color : state.isSelected ? 'white' : '#2c2c2c',
+
+        "&:hover" : {
+            backgroundColor: "#e0e0e0",
+            cursor : "pointer",
+        }
+      }),
   };
 
 export default function InputSelect ({
     label,
     inputId,
+    name,
     placeholder,
     options
 }) {
@@ -69,11 +74,13 @@ export default function InputSelect ({
                 styles={customStyles}
                 className="select"
                 inputId={inputId}
+                name={name}
                 // value={"selectedOption"}
                 options={options}
                 placeholder={placeholder}
                 // onChange={"handleChange"}
                 // isSearchable={true}
+                isClearable={true}
             />
         </div>
     )
@@ -82,6 +89,7 @@ export default function InputSelect ({
 InputSelect.propTypes = {
     label : PropTypes.string,
     inputId : PropTypes.string.isRequired,
+    name : PropTypes.string.isRequired,
     placeholder : PropTypes.string,
     options : PropTypes.array,
 }
