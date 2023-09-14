@@ -1,7 +1,10 @@
 /* eslint-disable react/no-unknown-property */
 // /** @jsxImportSource @emotion/react */
+import { useContext } from "react"
+import { Context } from "../../store/Context"
 import { css } from '@emotion/react'
 import { creditCardDim } from "../../styles/dimensions"
+import visaLogo from "../../assets/images/visa.svg"
 
 const styles = css`
     position: absolute;
@@ -9,19 +12,108 @@ const styles = css`
     top: ${creditCardDim.height / 2}px;
     width: ${creditCardDim.width}px;
     height: ${creditCardDim.height}px;
+    padding: 15px 0;
     background-color: #090f16;
     border-radius: ${creditCardDim.borderRadius}px;
     box-shadow: #010c13e1 0 0 35px;
+    color: white;
+    font-family: 'Antic Slab', serif;
 
-    .example {
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 25px;
 
-     }
+        .sign {
+            width: 65px;
+            height: 55px;
+            background-color: #4b4b4b;
+            border-radius: 3px;
+        }
+
+        .logo {
+            width: 120px;
+            /* background-color: red; */
+        }
+    }
+
+    .body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 80px;
+        /* background-color: red; */
+
+        .number {
+            width: 100%;
+            text-align: center;
+            font-size: 32px;
+            letter-spacing: 2px;
+        }
+    }
+    
+    .footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 25px;
+        /* background-color: red; */
+
+        .personalSection {
+            border: #616161 1px solid;
+            border-radius: 6px;
+            padding: 8px 14px;
+            width: 75%;
+            height: 68px;
+            font-size: 18px;
+            /* background-color: red; */
+        }
+
+        .dateSection {
+            height: 68px;
+            padding: 8px 0;
+            font-size: 18px;
+            /* background-color: red; */
+        }
+    }
+
+    .title {
+        font-size: 13px;
+        color: #bdbdbd;
+    }
 `
 export default function CreditCard () {
 
+    const { formState } = useContext(Context)
+    const { cardNumber, cardHolders, month, year, cvv } = formState
+
+    console.log(cardHolders, cardNumber);
+
+
     return (
         <div css={styles}> 
-            
+            <div className="header">
+                <div className="sign"></div>
+                <div>
+                    <img className="logo" src={visaLogo} alt="" />
+                </div>
+            </div>
+            <div className="body">
+                <div className="number">
+                    {cardNumber}
+                </div>
+            </div>
+            <div className="footer">
+                <div className="personalSection">
+                    <p className="title">Card Holder</p>
+                    <p>{cardHolders.toUpperCase()}</p>
+                </div>
+                <div className="dateSection">
+                    <p className="title">Expires</p>
+                    <p>{month?.value}/{year?.value}</p>
+                </div>
+            </div>
         </div>
     )
 }

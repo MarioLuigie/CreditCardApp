@@ -1,17 +1,17 @@
 //MONTHS
 export const months = [
-    {value : "January", label : "01"},
-    {value : "February", label : "02"},
-    {value : "March", label : "03"},
-    {value : "April", label : "04"},
-    {value : "May", label : "05"},
-    {value : "Juni", label : "06"},
-    {value : "July", label : "07"},
-    {value : "August", label : "08"},
-    {value : "September", label : "09"},
-    {value : "October", label : "10"},
-    {value : "November", label : "11"},
-    {value : "December", label : "12"},
+    {value : "01", label : "01"},
+    {value : "02", label : "02"},
+    {value : "03", label : "03"},
+    {value : "04", label : "04"},
+    {value : "05", label : "05"},
+    {value : "06", label : "06"},
+    {value : "07", label : "07"},
+    {value : "08", label : "08"},
+    {value : "09", label : "09"},
+    {value : "10", label : "10"},
+    {value : "11", label : "11"},
+    {value : "12", label : "12"},
 ]
 
 //YEARS

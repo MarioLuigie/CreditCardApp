@@ -1,5 +1,6 @@
-import { createContext, useState } from "react"
+import { createContext, useState, useReducer } from "react"
 import PropTypes from "prop-types"
+import { creditCardActions } from "../constants/actions"
 
 export const Context = createContext()
 
@@ -31,10 +32,34 @@ export default function Provider ({ children }) {
         console.log((formState[name])?.value);
     }
 
+    const { ADD_CARD, DELETE_CARD, DELETE_ALL_CARDS, UPDATE_CARD } = creditCardActions
+    const initialCreditCardState = []
+
+    const creditCardReducer = (creditCardState, action) => {
+        switch (action.type) {
+            case ADD_CARD :
+                console.log("ADD");
+                return
+            case DELETE_CARD :
+                console.log("DELETE");
+                return
+            case DELETE_ALL_CARDS :
+                console.log("DELETE ALL");
+                return
+            case UPDATE_CARD :
+                console.log("UDATE");
+                return
+        }
+    }
+
+    const [creditCardState, creditCardDispatch] = useReducer(creditCardReducer, initialCreditCardState)
+
     const providerValues = {
         formState,
         handleChangeInput,
         handleChangeSelect,
+        creditCardState,
+        creditCardDispatch
     }
 
     return (

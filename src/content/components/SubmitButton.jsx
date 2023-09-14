@@ -2,6 +2,7 @@
 // /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
 import PropTypes from "prop-types"
+import { creditCardActions } from "../../constants/actions"
 
 const styles = css`
     width: 100%;
@@ -24,12 +25,22 @@ const styles = css`
 `
 
 export default function SubmitButton ({
-    label
+    label,
+    creditCardDispatch
 }) {
+
+    const handleClickButton = () => {
+        creditCardDispatch({
+            type : creditCardActions.ADD_CARD,
+        })
+    }
 
     return (
         <div css={styles}>
-            <button className="button">
+            <button 
+                className="button"
+                onClick={handleClickButton}
+            >
                 {label}
             </button>
         </div>
@@ -38,4 +49,5 @@ export default function SubmitButton ({
 
 SubmitButton.propTypes = {
     label : PropTypes.string.isRequired,
+    creditCardDispatch : PropTypes.func.isRequired,
 }

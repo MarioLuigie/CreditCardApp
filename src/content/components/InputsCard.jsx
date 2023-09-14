@@ -51,6 +51,8 @@ export default function InputsCard () {
         formState,
         handleChangeInput,
         handleChangeSelect,
+        creditCardState,
+        creditCardDispatch
     } = useContext(Context)
 
     return (
@@ -91,11 +93,13 @@ export default function InputsCard () {
                         label="CVV"
                         name="cvv"
                         value={formState.cvv}
+                        handleChange={handleChangeInput}
                     />
                 </div>
             </div>
             <SubmitButton 
                 label="Submit"
+                creditCardDispatch={creditCardDispatch}
             />
         </div>
     )
