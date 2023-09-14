@@ -58,14 +58,10 @@ export default function InputSelect ({
     inputId,
     name,
     placeholder,
-    options
+    options,
+    selectedOption,
+    onChange
 }) {
-
-
-
-    // const handleChange = (selectedOption) => {
-
-    // }
 
     return (
         <div css={styles}>
@@ -74,13 +70,11 @@ export default function InputSelect ({
                 styles={customStyles}
                 className="select"
                 inputId={inputId}
-                name={name}
-                // value={"selectedOption"}
+                value={selectedOption}
+                onChange={onChange(name)}
                 options={options}
                 placeholder={placeholder}
-                // onChange={"handleChange"}
-                // isSearchable={true}
-                isClearable={true}
+                isSearchable={true}
             />
         </div>
     )
@@ -92,5 +86,7 @@ InputSelect.propTypes = {
     name : PropTypes.string.isRequired,
     placeholder : PropTypes.string,
     options : PropTypes.array,
+    selectedOption : PropTypes.object,
+    onChange : PropTypes.func,
 }
 

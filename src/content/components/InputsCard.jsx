@@ -1,11 +1,13 @@
 /* eslint-disable react/no-unknown-property */
 // /** @jsxImportSource @emotion/react */
+import { useContext } from "react"
 import { css } from '@emotion/react'
+import { Context } from "../../store/Context"
 import Input from "./Input"
 import InputSelect from "../components/InputSelect"
 import SubmitButton from "../components/SubmitButton.jsx"
 import { creditCardDim, inputsCardDim } from '../../styles/dimensions'
-import months from "../../constants/months"
+import { months, years } from "../../constants/expirationDate"
 
 const styles = css`
     position: relative;
@@ -17,17 +19,17 @@ const styles = css`
     min-width: ${inputsCardDim.minWidth}px;
     max-width: ${inputsCardDim.maxWidth}px;
     padding: ${creditCardDim.height / 2}px 30px 30px;
-    /* background-color: yellow; */
     background-color: #f0f0f0;
     border-radius: 10px;
+    /* background-color: yellow; */
 
     .inputsWrapper {
         width: 100%;
         display: flex;
         flex-direction: column;
         align-items: center;
-        /* background-color: orange; */
         padding-top: 70px;
+        /* background-color: orange; */
      }
 
      .selectsWrapper {
@@ -45,7 +47,11 @@ const styles = css`
 `
 export default function InputsCard () {
 
-    const monthsOptions = months
+    const { 
+        formState,
+        handleChangeInput,
+        handleChangeSelect,
+    } = useContext(Context)
 
     return (
         <div css={styles}>
@@ -53,29 +59,38 @@ export default function InputsCard () {
                 <Input 
                     label="Card Number"
                     name="cardNumber"
+                    value={formState.cardNumber}
+                    handleChange={handleChangeInput}
                 />
                 <Input 
                     label="Card Holders"
                     name="cardHolders"
+                    value={formState.cardHolders}
+                    handleChange={handleChangeInput}
                 />
                 <div className='selectsWrapper'>
                     <InputSelect 
                         label="Expiration Date"
-                        inputId="selectYear"
-                        name="year"
-                        placeholder="Year"
-                    />
-                    <InputSelect 
                         inputId="selectMonth"
                         name="month"
                         placeholder="Month"
-                        options={monthsOptions}
+                        options={months}
+                        selectedOption={formState.month}
+                        onChange={handleChangeSelect}
 
                     />
                     <InputSelect 
+                        inputId="selectYear"
+                        name="year"
+                        placeholder="Year"
+                        options={years}
+                        selectedOption={formState.year}
+                        onChange={handleChangeSelect}
+                    />
+                    <Input 
                         label="CVV"
-                        inputId="selectCVV"
                         name="cvv"
+                        value={formState.cvv}
                     />
                 </div>
             </div>

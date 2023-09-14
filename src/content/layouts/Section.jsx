@@ -2,7 +2,7 @@
 // /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
 import CreditCard from "../components/CreditCard"
-import Inputs from "../components/InputsCard"
+import InputsCard from "../components/InputsCard"
 import { creditCardDim, section } from '../../styles/dimensions'
 
 const styles = css`
@@ -22,7 +22,7 @@ export default function Section () {
     return (
         <div css={styles}>
             <CreditCard />
-            <Inputs />
+            <InputsCard />
         </div>
     )
 }

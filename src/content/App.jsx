@@ -1,6 +1,7 @@
 /* eslint-disable react/no-unknown-property */
 // /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
+import Provider from "../store/Context"
 import Section from "../content/layouts/Section"
 
 const styles = css`
@@ -14,7 +15,9 @@ export default function App() {
 
   return (
     <div css={styles}>
-      <Section />
+      <Provider>
+        <Section />
+      </Provider>
     </div>
   )
 }

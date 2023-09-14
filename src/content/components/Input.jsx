@@ -36,7 +36,8 @@ const styles = css`
 `
 export default function Input ({
     label,
-    name
+    name,
+    handleChange
 }) {
 
     return (
@@ -53,6 +54,7 @@ export default function Input ({
                     id="card_number" 
                     name={name}
                     type="text" 
+                    onChange={handleChange}
                 />
             </div>
         </div>
@@ -62,4 +64,5 @@ export default function Input ({
 Input.propTypes = {
     label : PropTypes.string.isRequired,
     name : PropTypes.string.isRequired,
+    handleChange : PropTypes.func,
 }
