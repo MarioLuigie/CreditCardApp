@@ -1,10 +1,12 @@
 import { createContext, useState, useReducer } from "react"
 import PropTypes from "prop-types"
-import { creditCardActions } from "../constants/actions"
+import { creditCardsActions } from "../constants/actions"
 
 export const Context = createContext()
 
 export default function Provider ({ children }) {
+
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false)
 
     const initialFormState = {
         cardNumber : "",
@@ -29,37 +31,48 @@ export default function Provider ({ children }) {
             ...formState,
             [name] : selectedOption
         })
-        console.log((formState[name])?.value);
+        // console.log((formState[name])?.value);
     }
 
-    const { ADD_CARD, DELETE_CARD, DELETE_ALL_CARDS, UPDATE_CARD } = creditCardActions
-    const initialCreditCardState = []
+    const { 
+        ADD_CARD, 
+        DELETE_CARD, 
+        DELETE_ALL_CARDS, 
+        UPDATE_CARD, 
+    } = creditCardsActions
 
-    const creditCardReducer = (creditCardState, action) => {
+    const initialCreditCardsList = []
+
+    const creditCardsReducer = (creditCardsList, action) => {
+
         switch (action.type) {
             case ADD_CARD :
-                console.log("ADD");
-                return
+                console.log("ADD")
+                setFormState(initialFormState)
+                //Deep copy of actualStateObject for InputsCard
+                return [...creditCardsList, {...formState}]
             case DELETE_CARD :
-                console.log("DELETE");
-                return
+                console.log("DELETE")
+                return []
             case DELETE_ALL_CARDS :
-                console.log("DELETE ALL");
-                return
+                console.log("DELETE ALL")
+                return [...initialCreditCardsList]
             case UPDATE_CARD :
-                console.log("UDATE");
-                return
+                console.log("UDATE")
+                return []
         }
     }
 
-    const [creditCardState, creditCardDispatch] = useReducer(creditCardReducer, initialCreditCardState)
+    const [creditCardsList, creditCardsDispatch] = useReducer(creditCardsReducer, initialCreditCardsList)
 
     const providerValues = {
         formState,
         handleChangeInput,
         handleChangeSelect,
-        creditCardState,
-        creditCardDispatch
+        creditCardsList,
+        creditCardsDispatch,
+        isSidebarOpen,
+        setIsSidebarOpen
     }
 
     return (

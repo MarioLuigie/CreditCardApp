@@ -27,6 +27,16 @@ const styles = css`
         padding: 9px 10px;
         border-radius: 4px;
         border: #c4c4c4 1px solid;
+
+        &::placeholder {
+            font-size: 15.5px;
+            color: #969696;
+            letter-spacing: 0.4px;
+        }
+
+        &:focus::placeholder {
+            visibility: hidden;
+        }
      }
 
      .label {
@@ -37,7 +47,9 @@ const styles = css`
 export default function Input ({
     label,
     name,
-    handleChange
+    handleChange,
+    value,
+    placeholder
 }) {
 
     return (
@@ -55,6 +67,8 @@ export default function Input ({
                     name={name}
                     type="text" 
                     onChange={handleChange}
+                    value={value}
+                    placeholder={placeholder}
                 />
             </div>
         </div>
@@ -65,4 +79,6 @@ Input.propTypes = {
     label : PropTypes.string.isRequired,
     name : PropTypes.string.isRequired,
     handleChange : PropTypes.func,
+    value : PropTypes.string,
+    placeholder : PropTypes.string,
 }

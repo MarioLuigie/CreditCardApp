@@ -10,7 +10,7 @@ import { creditCardDim, inputsCardDim } from '../../styles/dimensions'
 import { months, years } from "../../constants/expirationDate"
 
 const styles = css`
-    position: relative;
+    /* position: relative; */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -51,8 +51,7 @@ export default function InputsCard () {
         formState,
         handleChangeInput,
         handleChangeSelect,
-        creditCardState,
-        creditCardDispatch
+        creditCardsDispatch
     } = useContext(Context)
 
     return (
@@ -63,12 +62,14 @@ export default function InputsCard () {
                     name="cardNumber"
                     value={formState.cardNumber}
                     handleChange={handleChangeInput}
+                    placeholder="Enter your number"
                 />
                 <Input 
                     label="Card Holders"
                     name="cardHolders"
                     value={formState.cardHolders}
                     handleChange={handleChangeInput}
+                    placeholder="Enter your full name"
                 />
                 <div className='selectsWrapper'>
                     <InputSelect 
@@ -99,7 +100,7 @@ export default function InputsCard () {
             </div>
             <SubmitButton 
                 label="Submit"
-                creditCardDispatch={creditCardDispatch}
+                creditCardsDispatch={creditCardsDispatch}
             />
         </div>
     )
