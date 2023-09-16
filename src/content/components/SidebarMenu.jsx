@@ -4,6 +4,7 @@ import { css } from '@emotion/react'
 import { useContext } from "react"
 import { Context } from "../../store/Context"
 import CreditCard from "./CreditCard"
+import Button from "../components/Button"
 
 const animationStyles = (isSidebarOpen) => css`
     animation: ${isSidebarOpen ? "slide-in" : "slide-out"} 0.5s ease-in-out forwards;
@@ -36,7 +37,6 @@ const styles = css`
     align-items: center;
     min-width: 500px;
     max-width: 550px;
-    width: 50vw;
     height: 100vh;
     background-color: #cfcfcf76;
     backdrop-filter: blur(8px);
@@ -58,7 +58,7 @@ const styles = css`
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 20px;
+        gap: 30px;
         padding: 100px 30px 50px;
         /* background-color: red; */
      }
@@ -71,6 +71,7 @@ export default function CreditCardsList () {
 
     return (
         <div css={[styles, animationStyles(isSidebarOpen)]}>
+            <Button position="absolute"/>
             <div className='creditCardsListPanel'>
                 
             </div>

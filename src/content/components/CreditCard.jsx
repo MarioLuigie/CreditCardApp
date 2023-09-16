@@ -19,6 +19,11 @@ const styles = (position) => css`
     box-shadow: #010c13e1 0 0 35px;
     color: white;
     font-family: 'Antic Slab', serif;
+    transition: 0.2s ease;
+
+    &:hover {
+        transform: ${position === "static" ? "scale(0.95)" : ""};
+    }
 
     .header {
         display: flex;
@@ -88,7 +93,7 @@ const styles = (position) => css`
 export default function CreditCard ({
     position,
     creditCardDataToSave,
-    useCreditCardDataToSave
+    useCreditCardDataToSave,
 }) {
 
     const { formState } = useContext(Context)

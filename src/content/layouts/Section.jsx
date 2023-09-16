@@ -4,7 +4,6 @@ import { css } from '@emotion/react'
 import CreditCard from "../components/CreditCard"
 import InputsCard from "../components/InputsCard"
 import SidebarMenu from "../components/SidebarMenu"
-import Button from "../components/Button"
 import { creditCardDim, section } from '../../styles/dimensions'
 
 const styles = css`
@@ -29,7 +28,6 @@ export default function Section () {
             />
             <InputsCard />
             <SidebarMenu />
-            <Button label="ok" />
         </div>
     )
 }
