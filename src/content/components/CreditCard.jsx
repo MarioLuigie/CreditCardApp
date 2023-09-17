@@ -25,6 +25,12 @@ const styles = (position) => css`
         transform: ${position === "static" ? "scale(0.95)" : ""};
     }
 
+    .controlPanelWrapper {
+        position: relative;
+        height: 1px;
+        /* background-color: yellow; */
+    }
+
     .header {
         display: flex;
         justify-content: space-between;
@@ -93,7 +99,8 @@ const styles = (position) => css`
 export default function CreditCard ({
     position,
     creditCardDataToSave,
-    useCreditCardDataToSave,
+    isCreditCardDataToSave,
+    controlPanel,
 }) {
 
     const { formState } = useContext(Context)
@@ -103,14 +110,23 @@ export default function CreditCard ({
         month, 
         year, 
         cvv 
-    } = useCreditCardDataToSave ? creditCardDataToSave : formState
+    } = isCreditCardDataToSave ? creditCardDataToSave : formState
 
     // console.log(cardHolders, cardNumber);
-    console.log(creditCardDataToSave);
-    console.log(useCreditCardDataToSave);
+    // console.log(creditCardDataToSave);
+    // console.log(isCreditCardDataToSave);
+
+    function createControlPanel () {
+        return (
+            <div className="controlPanelWrapper">
+                {controlPanel}
+            </div>
+        )
+    }
 
     return (
         <div css={styles(position)}> 
+            {isCreditCardDataToSave ? createControlPanel() : null}
             <div className="header">
                 <div className="sign"></div>
                 <div>
@@ -119,17 +135,34 @@ export default function CreditCard ({
             </div>
             <div className="body">
                 <div className="number">
-                    {cardNumber ? cardNumber : "1234 **** **** 1234"}
+                    {cardNumber 
+                        ? cardNumber 
+                        : "1234 **** **** 1234"
+                    }
                 </div>
             </div>
             <div className="footer">
                 <div className="personalSection">
                     <p className="title">Card Holder</p>
-                    <p>{cardHolders ? cardHolders?.toUpperCase() : "FULL NAME"}</p>
+                    <p>
+                        {cardHolders 
+                        ? cardHolders?.toUpperCase() 
+                        : "FULL NAME"
+                        }
+                    </p>
                 </div>
                 <div className="dateSection">
                     <p className="title">Expires</p>
-                    <p>{month ? month?.value : "MM"}/{year ? year?.value.slice(2) : "YY"}</p>
+                    <p>
+                        {month 
+                            ? month?.value 
+                            : "MM"
+                        }/
+                        {year 
+                            ? year?.value.slice(2) 
+                            : "YY"
+                        }
+                    </p>
                 </div>
             </div>
         </div>
@@ -139,5 +172,6 @@ export default function CreditCard ({
 CreditCard.propTypes = {
     position : PropTypes.string,
     creditCardDataToSave : PropTypes.object,
-    useCreditCardDataToSave : PropTypes.bool,
+    isCreditCardDataToSave : PropTypes.bool,
+    controlPanel : PropTypes.object,
 }

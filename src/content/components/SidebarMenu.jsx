@@ -4,7 +4,14 @@ import { css } from '@emotion/react'
 import { useContext } from "react"
 import { Context } from "../../store/Context"
 import CreditCard from "./CreditCard"
-import Button from "../components/Button"
+import ChevronButton from "./ChevronButton"
+import Button from "./Button"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
+import { creditCardsActions } from "../../constants/actions"
+import ControlPanel from "./ControlPanel"
+
 
 const animationStyles = (isSidebarOpen) => css`
     animation: ${isSidebarOpen ? "slide-in" : "slide-out"} 0.5s ease-in-out forwards;
@@ -45,6 +52,8 @@ const styles = css`
     .creditCardsListPanel {
         z-index: 100;
         position: fixed;
+        display: flex;
+        align-items: center;
         width: 100%;
         height: 65px;
         border-bottom: #a0a0a0 1px solid;
@@ -64,16 +73,39 @@ const styles = css`
      }
 `
 
-export default function CreditCardsList () {
+export default function SidebarMenu () {
 
-    const { creditCardsList, isSidebarOpen } = useContext(Context)
-    console.log(creditCardsList);
+    const icons = {
+        deleteIcon : <FontAwesomeIcon icon={faTrash} />,
+        editIcon : <FontAwesomeIcon icon={faPenToSquare} />
+    }
+
+    const { 
+        creditCardsList, 
+        isSidebarOpen,
+        creditCardsDispatch,
+    } = useContext(Context)
+
+    const { DELETE_ALL_CARDS } = creditCardsActions
+    // console.log(creditCardsList);
+
+    const handleClickButton = (actionType, payload) => () => {
+        creditCardsDispatch({
+            ...payload,
+            type : actionType,
+        })
+    }
 
     return (
         <div css={[styles, animationStyles(isSidebarOpen)]}>
-            <Button position="absolute"/>
+            <ChevronButton position="absolute"/>
             <div className='creditCardsListPanel'>
-                
+                <Button 
+                    label="delete"
+                    icon={<FontAwesomeIcon icon={faTrash} />}
+                    isIcon={true}
+                    onHandle={handleClickButton(DELETE_ALL_CARDS)}
+                />
             </div>
             <div className='creditCardsList'>
                 {creditCardsList.map((card, i) => (
@@ -81,7 +113,15 @@ export default function CreditCardsList () {
                         key={i}
                         position="static"
                         creditCardDataToSave={card}
-                        useCreditCardDataToSave={true}
+                        isCreditCardDataToSave={true}
+                        controlPanel={
+                            <ControlPanel 
+                                icons={icons} 
+                                isIcon={true} 
+                                id={card.id}
+                                clickButton={handleClickButton}
+                            />
+                        }
                     />
                 ))}
             </div>

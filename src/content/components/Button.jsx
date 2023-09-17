@@ -1,61 +1,50 @@
 /* eslint-disable react/no-unknown-property */
 // /** @jsxImportSource @emotion/react */
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronRight, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { css } from '@emotion/react'
-import { useContext } from "react"
-import { Context } from "../../store/Context"
 import PropTypes from "prop-types"
 
 const styles = css`
-    position: absolute;
-    top: 0;
-    right: -65px;
-    z-index: 2;
-    display: flex;
-    justify-content: flex-end;
-    /* background-color: red; */
+    
 
     .button {
-        height: 65px;
-        aspect-ratio: 1;
-        padding: 20px;
-        border-top-right-radius: 8px;
-        border-bottom-right-radius: 8px;
-        background-color: #ffffffd5;
-        cursor: pointer;
-        font-size: 50px;
+        padding: 8px 0;
+        width: 60px;
         display: flex;
         justify-content: center;
         align-items: center;
-        color: #163c68;
-    }
+        font-size: 20px;
+        cursor: pointer;
+        background-color: transparent;
+        color: #525252;
+
+        &:hover {
+            color: black;
+        }
+     }
 `
 
-export default function Button () {
-
-    const { isSidebarOpen, setIsSidebarOpen } = useContext(Context)
-
-    const handleClickMoveSidebar = () => {
-        console.log("sidebar", isSidebarOpen);
-        setIsSidebarOpen(!isSidebarOpen)
-    }
+export default function Button ({
+    label,
+    icon,
+    isIcon,
+    onHandle,
+}) {
 
     return (
         <div css={styles}>
             <button 
                 className='button'
-                onClick={handleClickMoveSidebar}
+                onClick={onHandle}
             >
-                {!isSidebarOpen 
-                    ? <FontAwesomeIcon icon={faChevronRight} /> 
-                    : <FontAwesomeIcon icon={faChevronLeft} />
-                }
+                {isIcon ? icon : label}
             </button>
         </div>
     )
 }
 
 Button.propTypes = {
-    position : PropTypes.string,
+    label : PropTypes.string.isRequired,
+    icon : PropTypes.object,
+    isIcon : PropTypes.bool.isRequired,
+    onHandle : PropTypes.func.isRequired,
 }
