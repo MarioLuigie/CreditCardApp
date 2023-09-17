@@ -2,8 +2,8 @@
 // /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
 import PropTypes from "prop-types"
-// import { useContext } from "react"
-// import { Context } from "../../store/Context"
+import { useContext } from "react"
+import { Context } from "../../store/Context"
 import { creditCardsActions } from '../../constants/actions'
 
 const styles = css`
@@ -49,14 +49,11 @@ export default function ControlPanel ({
     const { DELETE_CARD, UPDATE_CARD } = creditCardsActions
     // console.log(DELETE_CARD);
 
-    // const {
-    //     creditCardsDispatch,
-    // } = useContext(Context)
-
-    // const handleClickButton = (actionType) => () => {
-    //     console.log("control panel");
-    //     creditCardsDispatch({type : actionType, cardId : id})
-    // }
+    const {
+        isModalOpen,
+        setIsModalOpen,
+        handleOpenModal,
+    } = useContext(Context)
 
     return (
         <div css={styles}>
@@ -68,7 +65,7 @@ export default function ControlPanel ({
             </button>
             <button 
                 className='button'
-                onClick={clickButton(UPDATE_CARD)}
+                onClick={handleOpenModal(true, id)}
             >
                 {isIcon ? icons.editIcon : label}
             </button>

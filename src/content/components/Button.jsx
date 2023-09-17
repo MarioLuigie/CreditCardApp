@@ -3,24 +3,29 @@
 import { css } from '@emotion/react'
 import PropTypes from "prop-types"
 
-const styles = css`
-    
+const styles = (addStyles) => css`
+    width: 100%;
 
     .button {
-        padding: 8px 0;
-        width: 60px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 20px;
+        width: ${addStyles ? addStyles.fontWidth : "auto"};
+        background-color: ${addStyles ? addStyles.backgroundColor : "transparent"};
+        padding: 10px;
+        font-size: ${addStyles ? addStyles.fontSize : "25px"};
+        color: ${addStyles ? addStyles.fontColor : "#696969"};
+        border-radius: 5px;
         cursor: pointer;
-        background-color: transparent;
-        color: #525252;
+        box-shadow: ${addStyles ? addStyles.boxShadow : "none"};
+        transition: all 0.1s ease-in-out;
 
         &:hover {
-            color: black;
+            background-color: ${addStyles ? addStyles.hoverBackgroundColor : "transparent"};
+            color: ${addStyles ? addStyles.hoverColor : "#202020"}
         }
-     }
+
+        &:active {
+            transform: scale(0.95);
+        }
+    }
 `
 
 export default function Button ({
@@ -28,10 +33,11 @@ export default function Button ({
     icon,
     isIcon,
     onHandle,
+    addStyles,
 }) {
 
     return (
-        <div css={styles}>
+        <div css={styles(addStyles)}>
             <button 
                 className='button'
                 onClick={onHandle}
@@ -47,4 +53,5 @@ Button.propTypes = {
     icon : PropTypes.object,
     isIcon : PropTypes.bool.isRequired,
     onHandle : PropTypes.func.isRequired,
+    addStyles : PropTypes.object,
 }

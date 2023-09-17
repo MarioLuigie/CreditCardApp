@@ -7,6 +7,8 @@ export const Context = createContext()
 export default function Provider ({ children }) {
 
     const [isSidebarOpen, setIsSidebarOpen] = useState(false)
+    const [isModalOpen, setIsModalOpen] = useState(false)
+    const [cardEditedId, setCardEditedId] = useState("")
 
     const initialFormState = {
         cardNumber : "",
@@ -34,6 +36,21 @@ export default function Provider ({ children }) {
         // console.log((formState[name])?.value);
     }
 
+    const handleOpenModal = (shouldOpen, cardId) => () => {
+        console.log("modal opened")
+        console.log(isModalOpen)
+        setIsModalOpen(shouldOpen)
+        setCardEditedId(cardId)
+
+    }
+
+    const handleClickButton = (actionType, payload) => () => {
+        creditCardsDispatch({
+            ...payload,
+            type : actionType,
+        })
+    }
+
     const { 
         ADD_CARD, 
         DELETE_CARD, 
@@ -53,7 +70,7 @@ export default function Provider ({ children }) {
         switch (action.type) {
             case ADD_CARD :
                 // console.log("ADD")
-                console.log(creditCardSaved)
+                // console.log(creditCardSaved)
                 setFormState(initialFormState)
                 return [...creditCardsList, {...creditCardSaved}].reverse()
             case DELETE_CARD :
@@ -64,7 +81,21 @@ export default function Provider ({ children }) {
                 return [...initialCreditCardsList]
             case UPDATE_CARD :
                 // console.log("UDATE")
-                return []
+                // console.log(action.cardId)
+                setIsModalOpen(false)
+                setFormState(initialFormState)//async reset po edit
+                return creditCardsList
+                .map(card => card.id === action.cardId 
+                    ? {
+                        ...card,
+                        cardNumber: formState.cardNumber || card.cardNumber,
+                        cardHolders: formState.cardHolders || card.cardHolders,
+                        month: formState.month || card.month,
+                        year: formState.year || card.year,
+                        cvv: formState.cvv || card.cvv,
+                    }
+                  : card
+                )
         }
     }
 
@@ -77,7 +108,12 @@ export default function Provider ({ children }) {
         creditCardsList,
         creditCardsDispatch,
         isSidebarOpen,
-        setIsSidebarOpen
+        setIsSidebarOpen,
+        isModalOpen,
+        setIsModalOpen,
+        handleOpenModal,
+        handleClickButton,
+        cardEditedId,
     }
 
     return (

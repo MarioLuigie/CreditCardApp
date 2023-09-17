@@ -50,6 +50,7 @@ const styles = css`
     box-shadow: #1f1f1fb0 0 0 20px;
 
     .creditCardsListPanel {
+        padding: 0 15px;
         z-index: 100;
         position: fixed;
         display: flex;
@@ -84,17 +85,18 @@ export default function SidebarMenu () {
         creditCardsList, 
         isSidebarOpen,
         creditCardsDispatch,
+        handleClickButton,
     } = useContext(Context)
 
     const { DELETE_ALL_CARDS } = creditCardsActions
     // console.log(creditCardsList);
 
-    const handleClickButton = (actionType, payload) => () => {
-        creditCardsDispatch({
-            ...payload,
-            type : actionType,
-        })
-    }
+    // const handleClickButton = (actionType, payload) => () => {
+    //     creditCardsDispatch({
+    //         ...payload,
+    //         type : actionType,
+    //     })
+    // }
 
     return (
         <div css={[styles, animationStyles(isSidebarOpen)]}>

@@ -3,14 +3,19 @@
 import { useContext } from "react"
 import { css } from '@emotion/react'
 import { Context } from "../../store/Context"
+import PropTypes from "prop-types"
 import Input from "./Input"
 import InputSelect from "../components/InputSelect"
 import SubmitButton from "../components/SubmitButton.jsx"
 import { creditCardDim, inputsCardDim } from '../../styles/dimensions'
 import { months, years } from "../../constants/expirationDate"
+import Button from "./Button"
+import { creditCardsActions } from "../../constants/actions"
 
-const styles = css`
-    /* position: relative; */
+const styles = (isModal) => css`
+    position: ${isModal ? "absolute" : "static"};
+    z-index: ${isModal ? "3" : "none"};
+    box-shadow: ${isModal ? "#1f1f1fcc 0 0 35px" : ""};
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -32,7 +37,7 @@ const styles = css`
         /* background-color: orange; */
      }
 
-     .selectsWrapper {
+    .selectsWrapper {
         display: flex;
         justify-content: center;
         align-items: flex-end;
@@ -43,19 +48,34 @@ const styles = css`
         @media screen and (max-width: 700px) {
             flex-direction: column;
         }
-     }
+    }
+
+    .buttonsWrapper {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        width: 100%;
+    }
 `
-export default function InputsCard () {
+export default function InputsCard ({
+    isModal,
+}) {
 
     const { 
         formState,
         handleChangeInput,
         handleChangeSelect,
-        creditCardsDispatch
+        creditCardsDispatch,
+        isModalOpen,
+        handleOpenModal,
+        handleClickButton,
+        cardEditedId
     } = useContext(Context)
 
+    const { UPDATE_CARD } = creditCardsActions
+
     return (
-        <div css={styles}>
+        <div css={styles(isModal)}>
             <div className='inputsWrapper'>
                 <Input 
                     label="Card Number"
@@ -98,10 +118,48 @@ export default function InputsCard () {
                     />
                 </div>
             </div>
-            <SubmitButton 
-                label="Submit"
-                creditCardsDispatch={creditCardsDispatch}
-            />
+            {!isModal 
+                ? <SubmitButton 
+                    label="Submit"
+                    creditCardsDispatch={creditCardsDispatch}
+                />
+                : <div className="buttonsWrapper">
+                    <Button 
+                        label="done" 
+                        isIcon={false} 
+                        onHandle={handleOpenModal(false)}
+                        addStyles={{
+                            backgroundColor : "#3674a7", 
+                            boxShadow : "#575757b0 0 0 30px",
+                            color : "black",
+                            fontSize : "18px",
+                            fontColor : "#f0f0f0",
+                            fontWidth : "100%",
+                            hoverBackgroundColor : "#3d7fb4",
+                            hoverColor : "inherit"
+                        }}
+                    />
+                    <Button 
+                        label="apply" 
+                        isIcon={false} 
+                        onHandle={handleClickButton(UPDATE_CARD, {cardId : cardEditedId})}
+                        addStyles={{
+                            backgroundColor : "#3674a7", 
+                            boxShadow : "#575757b0 0 0 30px",
+                            color : "black",
+                            fontSize : "18px",
+                            fontColor : "#f0f0f0",
+                            fontWidth : "100%",
+                            hoverBackgroundColor : "#3d7fb4",
+                            hoverColor : "inherit"
+                        }}
+                    />
+                </div>
+            }
         </div>
     )
+}
+
+InputsCard.propTypes = {
+    isModal : PropTypes.bool.isRequired,
 }

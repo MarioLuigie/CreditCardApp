@@ -21,7 +21,11 @@ const styles = css`
         &:hover {
             background-color: #3d7fb4;
         }
-     }
+
+        &:active {
+            transform: scale(0.95);
+        }
+    }
 `
 
 export default function SubmitButton ({
