@@ -7,6 +7,7 @@ import { css } from '@emotion/react'
 import { creditCardDim } from "../../styles/dimensions"
 import visaLogo from "../../assets/images/visa.svg"
 import creditCardBg from "../../assets/images/card-back02.jpg"
+import ControlPanel from "./ControlPanel"
 
 const styles = (position) => css`
     overflow: hidden;
@@ -102,9 +103,11 @@ const styles = (position) => css`
     }
 `
 export default function CreditCard ({
+    icons,
+    cardId,
     position,
     existCreditCard,
-    controlPanel,
+    handleClickButton
 }) {
 
     const { formState } = useContext(Context)
@@ -122,7 +125,14 @@ export default function CreditCard ({
 
     return (
         <div css={styles(position)}> 
-            {existCreditCard && controlPanel}
+            {existCreditCard && 
+                <ControlPanel 
+                    icons={icons} 
+                    isIcon={true} 
+                    cardId={cardId}
+                    clickButton={handleClickButton}
+                />
+            }
             <img src={creditCardBg} alt="credit card background" className="creditCardBg"/>
             <div className="header">
                 <div className="sign"></div>
@@ -167,7 +177,10 @@ export default function CreditCard ({
 }
 
 CreditCard.propTypes = {
+    icons : PropTypes.object,
     position : PropTypes.string,
     existCreditCard : PropTypes.object,
     controlPanel : PropTypes.object,
+    cardId : PropTypes.string,
+    handleClickButton : PropTypes.func,
 }

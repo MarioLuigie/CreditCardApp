@@ -61,7 +61,7 @@ export default function Provider ({ children }) {
 
     const creditCardsReducer = (creditCardsList, action) => {
         //Deep copy of actualStateObject from InputsCard
-        const creditCardSaved = {
+        const existCreditCard = {
             ...formState,
             id : `${Date.now()}_${Math.floor(Math.random() * 1000)}`
         }
@@ -71,7 +71,7 @@ export default function Provider ({ children }) {
                 // console.log("ADD")
                 // console.log(creditCardSaved)
                 setFormState(initialFormState)
-                return [...creditCardsList, {...creditCardSaved}]
+                return [...creditCardsList, {...existCreditCard}]
             case DELETE_CARD :
                 // console.log("DELETE")
                 return creditCardsList.filter(card => card.id !== action.cardId)

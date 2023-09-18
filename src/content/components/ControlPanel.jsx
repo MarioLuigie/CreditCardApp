@@ -42,7 +42,7 @@ export default function ControlPanel ({
     label,
     icons,
     isIcon,
-    id,
+    cardId,
     clickButton
 }) {
 
@@ -59,13 +59,13 @@ export default function ControlPanel ({
         <div css={styles}>
             <button 
                 className='button button--alert'
-                onClick={clickButton(DELETE_CARD, {cardId : id})}
+                onClick={clickButton(DELETE_CARD, {cardId : cardId})}
             >
                 {isIcon ? icons.deleteIcon : label}
             </button>
             <button 
                 className='button'
-                onClick={handleOpenModal(true, id)}
+                onClick={handleOpenModal(true, cardId)}
             >
                 {isIcon ? icons.editIcon : label}
             </button>
@@ -77,6 +77,6 @@ ControlPanel.propTypes = {
     label : PropTypes.string,
     icons : PropTypes.object,
     isIcon : PropTypes.bool.isRequired,
-    id : PropTypes.string,
+    cardId : PropTypes.string,
     clickButton : PropTypes.func.isRequired,
 }

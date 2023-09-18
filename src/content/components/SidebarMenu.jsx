@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import { creditCardsActions } from "../../constants/actions"
-import ControlPanel from "./ControlPanel"
+// import ControlPanel from "./ControlPanel"
 
 
 const animationStyles = (isSidebarOpen) => css`
@@ -114,17 +114,12 @@ export default function SidebarMenu () {
             <div className='creditCardsList'>
                 {creditCardsList.map((card, i) => (
                     <CreditCard 
+                        icons={icons}
                         key={i}
+                        cardId={card.id}
                         position="relative"
                         existCreditCard={card}
-                        controlPanel={
-                            <ControlPanel 
-                                icons={icons} 
-                                isIcon={true} 
-                                id={card.id}
-                                clickButton={handleClickButton}
-                            />
-                        }
+                        handleClickButton={handleClickButton}
                     />
                 ))}
             </div>

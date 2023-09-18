@@ -100,7 +100,14 @@ export default function InputsCard ({
 
     return (
         <div css={styles(isModal)}>
-            {isModal && <div className="editLogoWrapper"><img className="editLogo" src={editImage} alt="edit picture animation"/></div>}
+            {isModal && 
+                <div className="editLogoWrapper">
+                    <img 
+                        className="editLogo" 
+                        src={editImage} 
+                        alt="edit picture animation"
+                    />
+                </div>}
             <div className='inputsWrapper'>
                 <Input 
                     label="Card Number"
@@ -143,12 +150,9 @@ export default function InputsCard ({
                     />
                 </div>
             </div>
-            {!isModal 
-                ? <SubmitButton 
-                    label="Submit"
-                    creditCardsDispatch={creditCardsDispatch}
-                />
-                : <div className="buttonsWrapper">
+            {isModal 
+                ? 
+                <div className="buttonsWrapper">
                     <Button 
                         label="done" 
                         isIcon={false} 
@@ -162,6 +166,11 @@ export default function InputsCard ({
                         addStyles={stylesForButtons}
                     />
                 </div>
+                : 
+                <SubmitButton 
+                    label="Submit"
+                    creditCardsDispatch={creditCardsDispatch}
+                />
             }
         </div>
     )
@@ -170,3 +179,4 @@ export default function InputsCard ({
 InputsCard.propTypes = {
     isModal : PropTypes.bool.isRequired,
 }
+
