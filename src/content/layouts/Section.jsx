@@ -8,7 +8,7 @@ import InputsCard from "../components/InputsCard"
 import SidebarMenu from "../components/SidebarMenu"
 import { creditCardDim, section } from '../../styles/dimensions'
 
-const styles = css`
+const styles = (isModalOpen) => css`
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -17,17 +17,18 @@ const styles = css`
     max-width: ${section.maxWidth}px;
     min-width: ${section.minWidth}px;
     padding: ${creditCardDim.height}px 40px 60px;
+    padding: ${!isModalOpen ? `${creditCardDim.height}px 40px 60px` : "140px 40px 60px"};
     background-color: transparent;
 `
 
 export default function Section () {
 
     const {
-        isModalOpen
+        isModalOpen,
     } = useContext(Context)
 
     return (
-        <div css={styles}>
+        <div css={styles(isModalOpen)}>
             {isModalOpen && <InputsCard isModal={true}/>}
             <CreditCard 
                 position="absolute"

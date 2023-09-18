@@ -11,6 +11,7 @@ import { creditCardDim, inputsCardDim } from '../../styles/dimensions'
 import { months, years } from "../../constants/expirationDate"
 import Button from "./Button"
 import { creditCardsActions } from "../../constants/actions"
+import editImage from "../../assets/images/to-write.gif"
 
 const styles = (isModal) => css`
     position: ${isModal ? "absolute" : "static"};
@@ -23,7 +24,7 @@ const styles = (isModal) => css`
     width: ${inputsCardDim.width}%;
     min-width: ${inputsCardDim.minWidth}px;
     max-width: ${inputsCardDim.maxWidth}px;
-    padding: ${creditCardDim.height / 2}px 30px 30px;
+    padding: ${!isModal ? `${creditCardDim.height / 2}px 30px 30px` : `45px 30px 30px`};
     background-color: #f0f0f0;
     border-radius: 10px;
     /* background-color: yellow; */
@@ -33,7 +34,7 @@ const styles = (isModal) => css`
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding-top: 70px;
+        padding-top: ${!isModal ? "70px" : "0"};;
         /* background-color: orange; */
      }
 
@@ -56,10 +57,33 @@ const styles = (isModal) => css`
         gap: 20px;
         width: 100%;
     }
+
+    .editLogoWrapper {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        padding-top: 20px;
+        /* background-color: red; */
+    }
+
+    .editLogo {
+        width: 150px;
+    }
 `
 export default function InputsCard ({
     isModal,
 }) {
+
+    const stylesForButtons = {
+        backgroundColor : "#3674a7", 
+        boxShadow : "#575757b0 0 0 30px",
+        color : "black",
+        fontSize : "18px",
+        fontColor : "#f0f0f0",
+        fontWidth : "100%",
+        hoverBackgroundColor : "#3d7fb4",
+        hoverColor : "inherit"
+    }
 
     const { 
         formState,
@@ -76,6 +100,7 @@ export default function InputsCard ({
 
     return (
         <div css={styles(isModal)}>
+            {isModal && <div className="editLogoWrapper"><img className="editLogo" src={editImage} alt="edit picture animation"/></div>}
             <div className='inputsWrapper'>
                 <Input 
                     label="Card Number"
@@ -128,31 +153,13 @@ export default function InputsCard ({
                         label="done" 
                         isIcon={false} 
                         onHandle={handleOpenModal(false)}
-                        addStyles={{
-                            backgroundColor : "#3674a7", 
-                            boxShadow : "#575757b0 0 0 30px",
-                            color : "black",
-                            fontSize : "18px",
-                            fontColor : "#f0f0f0",
-                            fontWidth : "100%",
-                            hoverBackgroundColor : "#3d7fb4",
-                            hoverColor : "inherit"
-                        }}
+                        addStyles={stylesForButtons}
                     />
                     <Button 
                         label="apply" 
                         isIcon={false} 
                         onHandle={handleClickButton(UPDATE_CARD, {cardId : cardEditedId})}
-                        addStyles={{
-                            backgroundColor : "#3674a7", 
-                            boxShadow : "#575757b0 0 0 30px",
-                            color : "black",
-                            fontSize : "18px",
-                            fontColor : "#f0f0f0",
-                            fontWidth : "100%",
-                            hoverBackgroundColor : "#3d7fb4",
-                            hoverColor : "inherit"
-                        }}
+                        addStyles={stylesForButtons}
                     />
                 </div>
             }

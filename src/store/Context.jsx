@@ -6,10 +6,6 @@ export const Context = createContext()
 
 export default function Provider ({ children }) {
 
-    const [isSidebarOpen, setIsSidebarOpen] = useState(false)
-    const [isModalOpen, setIsModalOpen] = useState(false)
-    const [cardEditedId, setCardEditedId] = useState("")
-
     const initialFormState = {
         cardNumber : "",
         cardHolders : "",
@@ -18,7 +14,19 @@ export default function Provider ({ children }) {
         cvv : "",
     }
 
+    const { 
+        ADD_CARD, 
+        DELETE_CARD, 
+        DELETE_ALL_CARDS, 
+        UPDATE_CARD, 
+    } = creditCardsActions
+
+    const initialCreditCardsList = []
+
     const [formState, setFormState] = useState(initialFormState)//object
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false)
+    const [isModalOpen, setIsModalOpen] = useState(false)
+    const [cardEditedId, setCardEditedId] = useState("")
 
     const handleChangeInput = evt => {
         setFormState({
@@ -50,15 +58,6 @@ export default function Provider ({ children }) {
             type : actionType,
         })
     }
-
-    const { 
-        ADD_CARD, 
-        DELETE_CARD, 
-        DELETE_ALL_CARDS, 
-        UPDATE_CARD, 
-    } = creditCardsActions
-
-    const initialCreditCardsList = []
 
     const creditCardsReducer = (creditCardsList, action) => {
         //Deep copy of actualStateObject from InputsCard

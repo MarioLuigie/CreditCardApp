@@ -6,13 +6,16 @@ import { Context } from "../../store/Context"
 import { css } from '@emotion/react'
 import { creditCardDim } from "../../styles/dimensions"
 import visaLogo from "../../assets/images/visa.svg"
+import creditCardBg from "../../assets/images/card-back02.jpg"
 
 const styles = (position) => css`
+    overflow: hidden;
     position: ${position};
     z-index: 1;
-    top: ${creditCardDim.height / 2}px;
+    top: ${position === "absolute" ? creditCardDim.height / 2 : "0"}px;
     width: ${creditCardDim.width}px;
-    height: ${creditCardDim.height}px;
+    min-height: ${creditCardDim.height}px;
+    max-height: ${creditCardDim.height}px;
     padding: 15px 0;
     background-color: #090f16;
     border-radius: ${creditCardDim.borderRadius}px;
@@ -23,12 +26,6 @@ const styles = (position) => css`
 
     &:hover {
         transform: ${position === "static" ? "scale(0.95)" : ""};
-    }
-
-    .controlPanelWrapper {
-        position: relative;
-        height: 1px;
-        /* background-color: yellow; */
     }
 
     .header {
@@ -95,11 +92,18 @@ const styles = (position) => css`
         font-size: 13px;
         color: #bdbdbd;
     }
+
+    .creditCardBg {
+        height: 100%;
+        position: absolute;
+        object-fit: cover;
+        top: 0;
+        z-index: -1;
+    }
 `
 export default function CreditCard ({
     position,
-    creditCardDataToSave,
-    isCreditCardDataToSave,
+    existCreditCard,
     controlPanel,
 }) {
 
@@ -110,23 +114,16 @@ export default function CreditCard ({
         month, 
         year, 
         cvv 
-    } = isCreditCardDataToSave ? creditCardDataToSave : formState
+    } = existCreditCard ? existCreditCard : formState
 
     // console.log(cardHolders, cardNumber);
     // console.log(creditCardDataToSave);
     // console.log(isCreditCardDataToSave);
 
-    function createControlPanel () {
-        return (
-            <div className="controlPanelWrapper">
-                {controlPanel}
-            </div>
-        )
-    }
-
     return (
         <div css={styles(position)}> 
-            {isCreditCardDataToSave ? createControlPanel() : null}
+            {existCreditCard && controlPanel}
+            <img src={creditCardBg} alt="credit card background" className="creditCardBg"/>
             <div className="header">
                 <div className="sign"></div>
                 <div>
@@ -171,7 +168,6 @@ export default function CreditCard ({
 
 CreditCard.propTypes = {
     position : PropTypes.string,
-    creditCardDataToSave : PropTypes.object,
-    isCreditCardDataToSave : PropTypes.bool,
+    existCreditCard : PropTypes.object,
     controlPanel : PropTypes.object,
 }

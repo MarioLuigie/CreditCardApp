@@ -44,10 +44,10 @@ const styles = css`
     align-items: center;
     min-width: 500px;
     max-width: 550px;
-    height: 100vh;
     background-color: #cfcfcf76;
     backdrop-filter: blur(8px);
     box-shadow: #1f1f1fb0 0 0 20px;
+    /* background-color: yellow; */
 
     .creditCardsListPanel {
         padding: 0 15px;
@@ -62,8 +62,10 @@ const styles = css`
         backdrop-filter: blur(8px);
      }
 
-     .creditCardsList {
+    .creditCardsList {
         overflow: auto;
+        min-height: 100vh;
+        max-height: 100vh;
         width: 100%;
         display: flex;
         flex-direction: column;
@@ -71,7 +73,7 @@ const styles = css`
         gap: 30px;
         padding: 100px 30px 50px;
         /* background-color: red; */
-     }
+    }
 `
 
 export default function SidebarMenu () {
@@ -113,9 +115,8 @@ export default function SidebarMenu () {
                 {creditCardsList.map((card, i) => (
                     <CreditCard 
                         key={i}
-                        position="static"
-                        creditCardDataToSave={card}
-                        isCreditCardDataToSave={true}
+                        position="relative"
+                        existCreditCard={card}
                         controlPanel={
                             <ControlPanel 
                                 icons={icons} 

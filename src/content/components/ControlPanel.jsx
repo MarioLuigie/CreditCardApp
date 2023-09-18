@@ -9,7 +9,7 @@ import { creditCardsActions } from '../../constants/actions'
 const styles = css`
     width: 100%;
     height: 78px;
-    position: sticky;
+    position: absolute;
     display: flex;
     gap: 18px;
     align-items: center;
