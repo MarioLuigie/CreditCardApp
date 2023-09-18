@@ -41,7 +41,7 @@ export default function Provider ({ children }) {
         console.log(isModalOpen)
         setIsModalOpen(shouldOpen)
         setCardEditedId(cardId)
-
+        setFormState(initialFormState)
     }
 
     const handleClickButton = (actionType, payload) => () => {
@@ -72,7 +72,7 @@ export default function Provider ({ children }) {
                 // console.log("ADD")
                 // console.log(creditCardSaved)
                 setFormState(initialFormState)
-                return [...creditCardsList, {...creditCardSaved}].reverse()
+                return [...creditCardsList, {...creditCardSaved}]
             case DELETE_CARD :
                 // console.log("DELETE")
                 return creditCardsList.filter(card => card.id !== action.cardId)
